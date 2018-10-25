@@ -1,0 +1,133 @@
+{% extends "/index.html" %}
+{% block content %}
+    {#    <script src="{{url_for('static', filename='ckeditor/ckeditor.js')}}"></script>#}
+    <style>
+        #uploadfile_input{
+            opacity: 0;
+        }
+    </style>
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-settings font-dark"></i>
+                                <span class="caption-subject font-dark sbold uppercase">监控商品编辑</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body form">
+                            <form class="form-horizontal" role="form" name="test">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">商品名称</label>
+                                        <div class="col-md-10">
+                                            <input id="goods_name" class="form-control" name="goods_name"
+                                                   value="{{ data["goods_name"] }}">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <hr>
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">商品链接</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control input-small" type="text" id="goods_url"
+                                                   value="{{ data["goods_url"] }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">safe code</label>
+                                        <div class="col-md-10">
+                                            <input class="form-control input-small" type="text" id="safe_code"
+                                                   value="{{ data["safe_code"] }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">cookie</label>
+                                        <div class="col-md-10">
+                                            <textarea id="user_cookie" class="form-control" rows="3"
+                                                      value="{{ data["user_cookie"] }}">{{ data["user_cookie"] }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-1 control-label">备注</label>
+                                        <div class="col-md-10">
+                                            <textarea id="remarks" class="form-control" rows="3"
+                                                      value="{{ data["remarks"] }}">{{ data["remarks"] }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class=" col-md-11 text-right">
+                                            <button type="button" class="btn green"
+                                                    onclick="modify_monitor_data()">提交
+                                            </button>
+                                            <button type="button" class="btn green"
+                                                    onclick="stop_information_content()">取消
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/JavaScript">
+
+        function modify_monitor_data() {
+            var formData = new FormData();
+
+            formData.append('goods_name', $('#goods_name').val());
+            formData.append('id', {{data["id"]}});
+            formData.append('remarks', $('#remarks').val());
+            formData.append('goods_url', $("#goods_url").val());
+            formData.append('safe_code', $("#safe_code").val());
+            formData.append('user_cookie', $("#user_cookie").val());
+
+            layer.confirm('是否修改？', {
+                btn: ['确认', '取消']
+            }, function () {
+                $.ajax({
+                    url: '{{ url_for('wangyi.modify_monitor_data')}}',
+                    type: 'post',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data.success == 'ok') {
+                            layer.msg("修改成功", {time: 1000, icon: 1});
+                            window.localStorage.setItem("info_reload", "true");
+                            window.history.go(-1);
+                        }
+                        else {
+                            layer.msg(data.failed, {time: 1000, icon: 5})
+                        }
+                    }
+                });
+            }, function () {
+                layer.msg("已取消", {time: 1000, icon: 2});
+                return false
+            });
+        }
+
+        function stop_information_content() {
+            layer.confirm('是否放弃当前编辑内容？', {
+                btn: ['确认', '取消'] //按钮
+            }, function () {
+                window.localStorage.setItem("info_reload", "true");
+                window.history.go(-1);
+            }, function () {
+                layer.msg('未放弃，真棒！', {time: 1000, icon: 6});
+                return false;
+            });
+        }
+
+    </script>
+{% endblock %}
+

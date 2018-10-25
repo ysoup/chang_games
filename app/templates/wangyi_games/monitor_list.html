@@ -21,7 +21,7 @@
                         <div class="row" style="padding-top: 10px">
                             <div class="col-md-8">
 
-                                <button type="button" class="btn blue btn-circle" onclick='add_monitor()'
+                                <button type="button" class="btn blue btn-circle" onclick='add_monitor_info()'
                                         style="margin-left: 10px">新增监控商品
                                 </button>
                             </div>
@@ -32,113 +32,30 @@
                                     <table class="table table-hover">
                                         <thead>
                                         <tr>
-                                            <th>
-{#                                                <button onclick="all_choice()" type="button" class="btn btn-circle red btn-sm">全选</button>#}
-                                            </th>
-                                            <th>快讯ID</th>
-                                            <th>对应资讯ID</th>
-{#                                            <th>快讯标题</th>#}
-                                            <th>摘要</th>
-                                            <th>类型</th>
-                                            <th>来源</th>
-                                            <th>添加时间</th>
-                                            <th>更新时间</th>
-                                            <th>展示</th>
-                                            <th>推送</th>
-                                            <th>操作人</th>
-                                            {#                                                    <th>备注</th>#}
+                                            <th>ID</th>
+                                            <th>商品名称</th>
+                                            <th>商品链接</th>
+                                            <th>创建日期</th>
                                             <th>操作</th>
                                         </tr>
                                         </thead>
-{#                                        <tbody>#}
-{#                                        {% for row in data %}#}
-{#                                            <tr id="tr-{{ row['id'] }}">#}
-{#                                                <td><label>#}
-{#                                                    <input type="checkbox" name="choice_checkbox"#}
-{#                                                           value="{{ row['id'] }}">#}
-{#                                                </label></td>#}
-{#                                                <td>{{ row["id"] }}</td>#}
-{#                                                <td>#}
-{#                                                    {% if row['info_id'] ==  None %}#}
-{##}
-{#                                                    {% else %}#}
-{#                                                        {{ row['info_id'] }}#}
-{#                                                    {% endif %}#}
-{#                                                </td>#}
-{#                                                <td>{{ row.title }}</td>#}
-{#                                                {% if row.highlight_color %}#}
-{#                                                    <td style="color: red;"><b>{{ row.title }}</b><br />{{ row.content|safe }}</td>#}
-{#                                                {% else %}#}
-{#                                                    <td>#}
-{#                                                            <br>#}
-{#                                                        <b>{{ row.title }}</b>#}
-{#                                                        <br />#}
-{#                                                        {% if row.possible_similarity == 1 %}#}
-{#                                                            <br>#}
-{#                                                            <b style="color: #fb7575">【疑似重复】</b><s>{{ row.content|safe }}</s>#}
-{#                                                        {% else %}#}
-{#                                                            <br>#}
-{#                                                            {{ row.content|safe }}#}
-{#                                                        {% endif %}#}
-{#                                                            </td>#}
-{#                                                {% endif %}#}
-{#                                                <td>{{ row.flash_cate.catname }}</td>#}
-{#                                                <td>{{ row["source_name"] }}</td>#}
-{#                                                <td>{{ row["create_time"] }}</td>#}
-{#                                                <td>{{ row["update_time"] }}</td>#}
-{#                                                {% if row["is_show"] == 1 %}#}
-{#                                                    <td>展示</td>#}
-{#                                                {% else %}#}
-{#                                                    <td>不展示</td>#}
-{#                                                {% endif %}#}
-{#                                                {% if row["is_push"] == 1 %}#}
-{#                                                    <td>是</td>#}
-{#                                                {% else %}#}
-{#                                                    <td>否</td>#}
-{#                                                {% endif %}#}
-{#                                                <td>{{ row["update_time"] }}</td>#}
-                                                {#                                                    <td>{{ row["remarks"] }}</td>#}
-{#                                                <td>#}
-{#                                                    {% if row['is_delete'] == 1 %}#}
-{#                                                        <button type="button" disabled="true"#}
-{#                                                                class="btn btn-default glyphicon glyphicon-trash"#}
-{#                                                                title="已删除"></button>#}
-{#                                                    {% else %}#}
-{#                                                        <button type="button"#}
-{#                                                                class="btn btn-success glyphicon glyphicon-trash"#}
-{#                                                                title="删除"#}
-{#                                                                onclick="delete_new_flash({{ row['id'] }})"></button>#}
-{#                                                    {% endif %}#}
-{#                                                    <br>#}
-{#                                                    <button type="button"#}
-{#                                                            class="btn btn-danger glyphicon glyphicon-pencil" title="编辑"#}
-{#                                                            onclick="modify_new_flash({{ row['id'] }})"></button>#}
-{#                                                    <br>#}
-{#                                                    {% if row["is_push"] == 1 %}#}
-{#                                                        <button type="button" disabled="true"#}
-{#                                                                class="btn btn-default glyphicon glyphicon-bullhorn"#}
-{#                                                                title="已推送"></button>#}
-{#                                                    {% else %}#}
-{#                                                        <button type="button"#}
-{#                                                                class="btn btn-warning glyphicon glyphicon-bullhorn"#}
-{#                                                                title="推送"#}
-{#                                                                onclick="push_new_flash({{ row['id'] }})"></button>#}
-{#                                                    {% endif %}#}
-{#                                                    {% if row['is_show'] == 1 %}#}
-{#                                                        <button type="button"#}
-{#                                                                class="btn btn-default glyphicon glyphicon-eye-close"#}
-{#                                                                title="取消展示"#}
-{#                                                                onclick="close_new_flash({{ row['id'] }})"></button>#}
-{#                                                    {% else %}#}
-{#                                                        <button type="button"#}
-{#                                                                class="btn blue btn-default glyphicon glyphicon-eye-open"#}
-{#                                                                title="展示"#}
-{#                                                                onclick="show_new_flash({{ row['id'] }})"></button>#}
-{#                                                    {% endif %}#}
-{#                                                </td>#}
-{#                                            </tr>#}
-{#                                        {% endfor %}#}
-{#                                        </tbody>#}
+                                        <tbody>
+                                        {% for row in data %}
+                                            <tr id="tr-{{ row['id'] }}">
+                                                <td>{{ row["id"] }}</td>
+                                                <td>{{ row["goods_name"]}}</td>
+                                                <td>{{ row["goods_url"] }}</td>
+                                                <td>{{ row["create_time"] }}</td>
+                                                <td>
+                                                    <br>
+                                                    <button type="button"
+                                                            class="btn btn-danger glyphicon glyphicon-pencil" title="编辑"
+                                                            onclick="modify_monitor_data({{ row['id'] }})"></button>
+                                                    <br>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -154,6 +71,14 @@
         </div>
     </div>
     <script type="text/JavaScript">
+        function add_monitor_info() {
+            window.location.href = "/add_monitor"
+        }
+
+        function modify_monitor_data(id) {
+            window.location.href = "/modify_monitor_data?id=" + id;
+        }
+
 {#        var this_reload = window.localStorage.getItem("reload");#}
 {#        if (this_reload == "true") {#}
 {#            window.localStorage.setItem("reload", "false");#}
