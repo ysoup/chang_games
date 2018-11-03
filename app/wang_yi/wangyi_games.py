@@ -73,6 +73,16 @@ def modify_monitor_data():
             data["user_cookie"] = user_cookie
             data["remarks"] = remarks
             redis_store.set("new_monitor_data_%s" % id, json.dumps(data))
+
+            cache_data = redis_store.get("monitor_list")
+            if cache_data:
+                ls = json.loads(str(cache_data, encoding="utf-8"))
+                new_ls = []
+                for x in ls:
+                    if x["id"] == int(id):
+                        x = data
+                    new_ls.append(x)
+                redis_store.set("monitor_list", json.dumps(new_ls))
             return jsonify({"success": "ok"})
         except Exception as e:
             current_app.logger.error(e)

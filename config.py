@@ -19,7 +19,7 @@ class DevelopmentConfig(config):
         'permission_manage': 'mysql+pymysql://root:Percona5.7.17@192.168.2.86:3306/permission_manage',
         "spiders_visualization": "mysql+pymysql://root:Percona5.7.17@192.168.2.86:3306/spiders_visualization"}
     BANNER_DETAIL_URL = 'http://test-backend.aibilink/modify_information?id='
-    REDIS_URL = "redis://:@192.168.2.8:6379/7"
+    REDIS_URL = "redis://:@127.0.0.1:6379/7"
     REQUEST_URL = "http://192.168.2.84:5000"
     # 搜索引擎设置
     SP_HOST = '192.168.2.88'
@@ -37,7 +37,7 @@ class OpentingConfig(config):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://release:t19PHuAmWJg@sql.aibilink.com:3306/new_flash'
     SQLALCHEMY_BINDS = {'permission_manage': 'mysql+pymysql://release:t19PHuAmWJg@sql.aibilink.com:3306/permission_manage',}
     BANNER_DETAIL_URL = 'http://open-backend.aibilink.com:8888/modify_information?id='
-    REDIS_URL = "redis://:@192.168.2.8:6379/0"
+    REDIS_URL = "redis://:@127.0.0.1:6379/0"
     REQUEST_URL = "http://open-login-aibilink.com:8888"
     # 搜索引擎设置
     SP_HOST = 'search.aibilink.com'
@@ -52,7 +52,7 @@ class ProductionConfig(config):
         'permission_manage': 'mysql+pymysql://backend:8pKSMj89bsY7@rds-aliyunnei.aibilink.com:3306/permission_manage',
         "spiders_visualization": "mysql+pymysql://crawler:8SiIT4X6MhI4@rds-aliyunnei.aibilink.com:3306/spiders_visualization"}
     BANNER_DETAIL_URL = 'https://backend.aibilink.com/modify_information?id='
-    REDIS_URL = "redis://:@redis.aibilink.com:6379/0"
+    REDIS_URL = "redis://:@127.0.0.1:6379/0"
     REQUEST_URL = "http://aibicoin.com:5000"
     # 搜索引擎设置
     SP_HOST = 'search.aibilink.com'
