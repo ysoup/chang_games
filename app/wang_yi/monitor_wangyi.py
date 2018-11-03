@@ -1,14 +1,15 @@
 # encoding=utf-8
 from flask import request, render_template, jsonify, flash, abort, url_for, redirect, session, Flask, g, current_app
-from chang_games import redis_store
+#from chang_games import redis_store
 import json, time, datetime, requests
 from selenium import webdriver
+import redis
 import logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s')
 
 
-def monitor_wangyi():
+def monitor_wangyi(redis_store):
     # 获取监控下单数据
     start = time.clock()
     while True:
@@ -104,4 +105,6 @@ def monitor_wangyi():
 
 
 if __name__ == '__main__':
-    monitor_wangyi()
+    pool = redis.ConnectionPool(host='127.0.0.1', port=6379, decode_responses=True)
+    redis_store = redis.Redis(connection_pool=pool)
+    monitor_wangyi(redis_store)
